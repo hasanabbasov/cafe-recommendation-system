@@ -4,7 +4,8 @@ from app import db
 from model.user_rating import UserRating
 from model.cafe import Cafe
 
-def get_collaborative_recommendations(target_user_id, top_n=5):
+
+def user_based_collaborative_filtering(target_user_id, top_n=5):
     # 1. Tüm puanları çek
     ratings = UserRating.query.all()
 
@@ -66,8 +67,6 @@ def get_collaborative_recommendations(target_user_id, top_n=5):
             })
 
     return result
-
-
 
 # Sonuç
 #

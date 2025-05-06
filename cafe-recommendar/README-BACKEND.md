@@ -38,3 +38,11 @@ Kod Yapısı
 •	Modüler services/, utils/, routes/ klasörleri ile temiz yapı kuruldu.
 •	Normalization gibi işlemler ayrı servislerde toplandı.
 •	Kodlar comment’lerle belgelenerek kolay anlaşılır hale getirildi.
+
+
+
+
+
+Kullanıcının puanı varsa → user-based çalıştır
+
+Sadece favorisi varsa → item-based çalıştır

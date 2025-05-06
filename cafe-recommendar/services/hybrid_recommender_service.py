@@ -1,6 +1,6 @@
 from utils.normalization import normalize_scores
 from services.recommendar import get_recommendations  # Content-based filtering
-from services.collaborative_filtering import get_collaborative_recommendations  # Collaborative filtering
+from services.user_based_collaborative_filtering import user_based_collaborative_filtering  # Collaborative filtering
 
 def get_hybrid_recommendations(user_id, alpha=0.5):
     """
@@ -13,7 +13,7 @@ def get_hybrid_recommendations(user_id, alpha=0.5):
 
     # 1. Her iki algoritmadan skorları al
     cb_results = get_recommendations(user_id)  # Content-based öneri sonuçları
-    cf_results = get_collaborative_recommendations(user_id)  # Collaborative filtering sonuçları
+    cf_results = user_based_collaborative_filtering(user_id)  # Collaborative filtering sonuçları
 
     # 2. Skorları normalize et (0–1 aralığına çeker)
     cb_scores = normalize_scores(cb_results)  # Örn: {"cafe_a": 0.8, "cafe_b": 0.3}

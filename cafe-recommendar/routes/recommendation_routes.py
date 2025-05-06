@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify
 from services.recommendar import get_recommendations
-from services.collaborative_filtering import get_collaborative_recommendations
+from services.user_based_collaborative_filtering import user_based_collaborative_filtering
+
+from services.item_based_collaborative_filtering import get_item_based_collaborative_filtering
 from services.hybrid_recommender_service import get_hybrid_recommendations
 from model.cafe import Cafe
 
@@ -16,8 +18,17 @@ def recommend(user_id):
 
 @recommendation_bp.route('/recommendations/<string:user_id>/cf', methods=['GET'])
 def collaborative_recommendation(user_id):
-    results = get_collaborative_recommendations(user_id)
+    results = user_based_collaborative_filtering(user_id)
     return jsonify(results)
+
+
+
+
+@recommendation_bp.route('/recommendations/<user_id>/item-cf', methods=['GET'])
+def item_based_recommendation(user_id):
+    results = get_item_based_collaborative_filtering(user_id)
+    return jsonify(results)
+
 
 
 @recommendation_bp.route('/recommendations/<user_id>/hybrid', methods=['GET'])
