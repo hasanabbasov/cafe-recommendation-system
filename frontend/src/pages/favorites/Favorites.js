@@ -55,7 +55,7 @@ const Favorites = () => {
                     }),
                 });
             }
-            navigate('/home');
+            navigate('/ratings');
         } catch (err) {
             console.error("Favoriler gönderilemedi:", err);
         }

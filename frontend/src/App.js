@@ -7,6 +7,7 @@ import TopRatedPopular from "./pages/main/TopRatedPopular";
 import ForYouPage from "./pages/main/ForYouPage";
 import SearchPage from "./pages/main/SearchPage";
 import HomePage from "./pages/main/HomePage";
+import Rating from "./pages/rating/Rating";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/favorites" element={<Favorites />} />
+                <Route path="/ratings" element={<Rating />} />
 
                 {/* Ana Sayfa için parent layout ve alt yollar */}
                 <Route path="/home" element={<HomePage />}>
