@@ -4,6 +4,8 @@ from model.user_rating import UserRating
 from model.user_favorite import UserFavorite
 from app import db
 
+
+# content-base
 def get_recommendations(user_id, top_n=5):
     user = User.query.get(user_id)
     if not user:
