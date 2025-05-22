@@ -1,8 +1,11 @@
 import './App.css';
 import LandingPage from "./pages/landing-page/LandingPage";
-import Register from "./pages/register/Register";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import Favorites from "./pages/favorites/Favorites";
+import AuthSelection from './pages/auth/AuthSelection';
+import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
+import ProfileForm from './pages/profile/ProfileForm';
 import TopRatedPopular from "./pages/main/TopRatedPopular";
 import ForYouPage from "./pages/main/ForYouPage";
 import SearchPage from "./pages/main/SearchPage";
@@ -14,7 +17,10 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<AuthSelection />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/profile-details" element={<ProfileForm />} />
                 <Route path="/favorites" element={<Favorites />} />
                 <Route path="/ratings" element={<Rating />} />
 
