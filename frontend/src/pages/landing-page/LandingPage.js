@@ -25,7 +25,7 @@ const LandingPage = () => {
     const scrollRef = useRef(null);
 
     const handleLoginClick = () => {
-        // Placeholder for login functionality
+        navigate('/register');
         console.log('Login clicked');
     };
 
