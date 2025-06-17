@@ -78,7 +78,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         radial-gradient(circle at 25% 25%, rgba(26, 115, 232, 0.03) 0%, transparent 50%),
         radial-gradient(circle at 75% 75%, rgba(26, 115, 232, 0.03) 0%, transparent 50%);
     z-index: 0;
@@ -92,7 +92,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         linear-gradient(rgba(26, 115, 232, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(26, 115, 232, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;

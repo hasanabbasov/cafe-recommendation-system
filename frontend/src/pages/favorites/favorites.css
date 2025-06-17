@@ -44,8 +44,10 @@
         0 0 0 1px rgba(26, 115, 232, 0.05);
     position: relative;
     z-index: 1;
+    width: calc(100% - 80px);
     max-width: 1200px;
     margin: 0 auto;
+    min-height: calc(100vh - 80px);
 }
 
 /* Card Styles */
