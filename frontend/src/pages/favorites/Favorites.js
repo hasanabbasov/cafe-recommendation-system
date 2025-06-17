@@ -24,7 +24,7 @@ const Favorites = () => {
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
-    const userId = localStorage.getItem('user_id'); // 👈 Backend'e gönderilecek userId
+    const userId = localStorage.getItem('user_id');
 
     useEffect(() => {
         fetch('http://127.0.0.1:5000/cafes')
@@ -83,7 +83,12 @@ const Favorites = () => {
     return (
         <Box className="register-container">
             <Paper elevation={3} className="register-form">
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" gutterBottom sx={{ 
+                    color: '#1a73e8',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    mb: 4
+                }}>
                     Favori Kafelerini Seç
                 </Typography>
 
@@ -93,42 +98,80 @@ const Favorites = () => {
                     variant="outlined"
                     value={searchTerm}
                     onChange={handleSearchChange}
-                    sx={{ mb: 2 }}
+                    sx={{ 
+                        mb: 3,
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: 2
+                        }
+                    }}
                 />
 
-                <Box sx={{ mb: 3 }}>
+                <Box sx={{ 
+                    mb: 4,
+                    p: 2,
+                    backgroundColor: 'rgba(26, 115, 232, 0.05)',
+                    borderRadius: 2,
+                    minHeight: '60px'
+                }}>
                     {selectedFavorites.length > 0 ? (
-                        selectedFavorites.map((cafe) => (
-                            <Chip
-                                key={cafe.cafe_id}
-                                label={cafe.name}
-                                onDelete={() => handleRemove(cafe.cafe_id)}
-                                sx={{ m: 0.5 }}
-                                color="primary"
-                                variant="outlined"
-                            />
-                        ))
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                            {selectedFavorites.map((cafe) => (
+                                <Chip
+                                    key={cafe.cafe_id}
+                                    label={cafe.name}
+                                    onDelete={() => handleRemove(cafe.cafe_id)}
+                                    sx={{ 
+                                        m: 0.5,
+                                        backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(26, 115, 232, 0.15)'
+                                        }
+                                    }}
+                                    color="primary"
+                                    variant="outlined"
+                                />
+                            ))}
+                        </Box>
                     ) : (
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center' }}>
                             Henüz favori seçilmedi.
                         </Typography>
                     )}
                 </Box>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     {displayedCafes.map((cafe) => (
                         <Grid item xs={12} sm={6} md={4} key={cafe.cafe_id}>
-                            <Card sx={{ boxShadow: 3, borderRadius: 3 }}>
-                                <CardContent>
-                                    <Typography variant="h6">{cafe.name}</Typography>
-                                    <Typography variant="body2" color="text.secondary">
+                            <Card sx={{ 
+                                height: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                borderRadius: 2,
+                                transition: 'all 0.2s ease-in-out',
+                                '&:hover': {
+                                    transform: 'translateY(-4px)',
+                                    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)'
+                                }
+                            }}>
+                                <CardContent sx={{ flexGrow: 1 }}>
+                                    <Typography variant="h6" gutterBottom sx={{ color: '#1a73e8' }}>
+                                        {cafe.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                                         Puan: {cafe.rating}
                                     </Typography>
                                     <Button
                                         onClick={() => handleSelect(cafe)}
                                         variant="outlined"
                                         fullWidth
-                                        sx={{ mt: 1 }}
+                                        sx={{ 
+                                            mt: 'auto',
+                                            borderColor: 'rgba(26, 115, 232, 0.5)',
+                                            '&:hover': {
+                                                backgroundColor: 'rgba(26, 115, 232, 0.05)',
+                                                borderColor: '#1a73e8'
+                                            }
+                                        }}
                                         startIcon={<FavoriteIcon />}
                                         disabled={selectedFavorites.find((f) => f.cafe_id === cafe.cafe_id)}
                                     >
@@ -141,14 +184,35 @@ const Favorites = () => {
                 </Grid>
 
                 <Box display="flex" justifyContent="center" mt={4}>
-                    <Pagination count={totalPages} page={page} onChange={handlePageChange} color="primary" />
+                    <Pagination 
+                        count={totalPages} 
+                        page={page} 
+                        onChange={handlePageChange} 
+                        color="primary"
+                        sx={{
+                            '& .MuiPaginationItem-root': {
+                                color: '#1a73e8'
+                            },
+                            '& .Mui-selected': {
+                                backgroundColor: 'rgba(26, 115, 232, 0.1)'
+                            }
+                        }}
+                    />
                 </Box>
 
                 <Button
                     variant="contained"
                     fullWidth
                     size="large"
-                    sx={{ mt: 4 }}
+                    sx={{ 
+                        mt: 4,
+                        py: 1.5,
+                        background: 'linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%)',
+                        '&:hover': {
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 8px rgba(26, 115, 232, 0.2)'
+                        }
+                    }}
                     onClick={handleSubmit}
                     disabled={selectedFavorites.length === 0}
                 >

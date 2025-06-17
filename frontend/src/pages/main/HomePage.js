@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Box, ToggleButtonGroup, ToggleButton, Paper, Typography } from '@mui/material';
+import './HomePage.css';
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -17,23 +18,47 @@ const HomePage = () => {
             : 'home';
 
     return (
-        <Box sx={{ backgroundColor: '#fdf6ee', minHeight: '100vh', py: 4 }}>
-            <Paper elevation={3} sx={{ mb: 4, py: 2, px: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 3 }}>
-                <Typography variant="h4" fontWeight="bold">Kafe Öneri Sistemi</Typography>
+        <Box className="register-container">
+            {/* Animated Bubbles */}
+             <Box className="bubble" />
+             <Box className="bubble" />
+             <Box className="bubble" />
+
+            <Paper elevation={3} className="nav-container">
+                <Typography variant="h4" className="nav-title">
+                    Kafe Öneri Sistemi
+                </Typography>
                 <ToggleButtonGroup
                     color="primary"
                     value={currentTab}
                     exclusive
                     onChange={handleTabChange}
+                    className="nav-buttons"
                 >
-                    <ToggleButton value="/home">ANA SAYFA</ToggleButton>
-                    <ToggleButton value="/home/for-you">FOR YOU</ToggleButton>
-                    <ToggleButton value="/home/search">ARA</ToggleButton>
+                    <ToggleButton
+                        value="/home"
+                        className="nav-button"
+                    >
+                        ANA SAYFA
+                    </ToggleButton>
+                    <ToggleButton
+                        value="/home/for-you"
+                        className="nav-button"
+                    >
+                        FOR YOU
+                    </ToggleButton>
+                    <ToggleButton
+                        value="/home/search"
+                        className="nav-button"
+                    >
+                        ARA
+                    </ToggleButton>
                 </ToggleButtonGroup>
+                <Box className="content-area">
+                    <Outlet />
+                </Box>
             </Paper>
-            <Box px={3}>
-                <Outlet />
-            </Box>
+
         </Box>
     );
 };

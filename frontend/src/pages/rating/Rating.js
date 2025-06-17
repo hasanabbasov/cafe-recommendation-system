@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Card, CardContent, Button, Slider, TextField, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import './rating.css';
 
 const Ratings = () => {
     const userId = localStorage.getItem('user_id');
@@ -61,17 +62,42 @@ const Ratings = () => {
     return (
         <Box className="register-container">
             <Paper elevation={3} className="register-form">
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" gutterBottom sx={{ 
+                    color: '#1a73e8',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    mb: 4
+                }}>
                     Favori Kafelerini Puanla
                 </Typography>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     {ratings.map((cafe) => (
                         <Grid item xs={12} sm={6} md={4} key={cafe.cafe_id}>
-                            <Card sx={{ boxShadow: 3, borderRadius: 3 }}>
-                                <CardContent>
-                                    <Typography variant="h6">{cafe.name}</Typography>
-                                    <Typography gutterBottom>Puan: {cafe.rating}</Typography>
+                            <Card sx={{ 
+                                height: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                borderRadius: 2,
+                                transition: 'all 0.2s ease-in-out',
+                                '&:hover': {
+                                    transform: 'translateY(-4px)',
+                                    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)'
+                                }
+                            }}>
+                                <CardContent sx={{ flexGrow: 1 }}>
+                                    <Typography variant="h6" gutterBottom sx={{ color: '#1a73e8' }}>
+                                        {cafe.name}
+                                    </Typography>
+                                    <Typography gutterBottom sx={{ 
+                                        color: 'text.secondary',
+                                        mb: 2,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 1
+                                    }}>
+                                        Puan: {cafe.rating}
+                                    </Typography>
                                     <Slider
                                         value={cafe.rating}
                                         min={1}
@@ -80,6 +106,18 @@ const Ratings = () => {
                                         marks
                                         valueLabelDisplay="auto"
                                         onChange={(_, value) => handleRatingChange(cafe.cafe_id, value)}
+                                        sx={{
+                                            color: '#1a73e8',
+                                            '& .MuiSlider-thumb': {
+                                                transition: 'transform 0.2s ease-in-out',
+                                                '&:hover': {
+                                                    transform: 'scale(1.2)'
+                                                }
+                                            },
+                                            '& .MuiSlider-track': {
+                                                background: 'linear-gradient(90deg, #1a73e8 0%, #0d47a1 100%)'
+                                            }
+                                        }}
                                     />
                                     <TextField
                                         label="Yorum"
@@ -89,6 +127,17 @@ const Ratings = () => {
                                         margin="normal"
                                         value={cafe.comment}
                                         onChange={(e) => handleCommentChange(cafe.cafe_id, e.target.value)}
+                                        sx={{
+                                            mt: 2,
+                                            '& .MuiOutlinedInput-root': {
+                                                borderRadius: 2,
+                                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                                transition: 'all 0.2s ease-in-out',
+                                                '&:hover': {
+                                                    backgroundColor: 'rgba(255, 255, 255, 1)'
+                                                }
+                                            }
+                                        }}
                                     />
                                 </CardContent>
                             </Card>
@@ -100,7 +149,15 @@ const Ratings = () => {
                     variant="contained"
                     fullWidth
                     size="large"
-                    sx={{ mt: 4 }}
+                    sx={{ 
+                        mt: 4,
+                        py: 1.5,
+                        background: 'linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%)',
+                        '&:hover': {
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 8px rgba(26, 115, 232, 0.2)'
+                        }
+                    }}
                     onClick={handleSubmit}
                 >
                     Kaydet ve Devam Et

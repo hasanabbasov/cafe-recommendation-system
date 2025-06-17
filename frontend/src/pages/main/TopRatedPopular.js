@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import { Box, Typography, Grid, Card, CardContent, Rating, Chip } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import LocalCafeIcon from '@mui/icons-material/LocalCafe';
+import PeopleIcon from '@mui/icons-material/People';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const TopRatedPopular = () => {
     const [topRated, setTopRated] = useState([]);
@@ -17,12 +21,42 @@ const TopRatedPopular = () => {
 
     const renderCafeCard = (cafe) => (
         <Grid item xs={12} sm={6} md={4} key={cafe.cafe_id}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                <CardContent>
-                    <Typography variant="h6">{cafe.name}</Typography>
-                    <Typography variant="body2">Puan: {cafe.rating}</Typography>
-                    <Typography variant="body2">Yorum: {cafe.reviews}</Typography>
-                    <Typography variant="body2">Fiyat: {cafe.priceLevel}</Typography>
+            <Card className="cafe-card">
+                <CardContent className="cafe-content">
+                    <Typography variant="h6" className="cafe-name">
+                        {cafe.name}
+                    </Typography>
+                    <Box className="cafe-info">
+                        <Box className="cafe-rating">
+                            <Rating 
+                                value={cafe.rating} 
+                                precision={0.5} 
+                                readOnly 
+                                size="small"
+                            />
+                            <Typography variant="body2">
+                                {cafe.rating.toFixed(1)}
+                            </Typography>
+                        </Box>
+                        <Typography className="cafe-reviews">
+                            <PeopleIcon sx={{ fontSize: 16, mr: 0.5 }} />
+                            {cafe.reviews} değerlendirme
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                        <Chip
+                            icon={<AttachMoneyIcon />}
+                            label={cafe.priceLevel}
+                            size="small"
+                            className="cafe-price"
+                        />
+                        <Chip
+                            icon={<LocalCafeIcon />}
+                            label="Kafe"
+                            size="small"
+                            className="cafe-price"
+                        />
+                    </Box>
                 </CardContent>
             </Card>
         </Grid>
@@ -30,11 +64,25 @@ const TopRatedPopular = () => {
 
     return (
         <Box>
-            <Typography variant="h5" mb={2}>En Yüksek Puanlı Kafeler</Typography>
-            <Grid container spacing={2}>{topRated.map(renderCafeCard)}</Grid>
+            <Box className="cafe-section">
+                <Typography variant="h5" className="section-title">
+                    <StarIcon color="primary" />
+                    En Yüksek Puanlı Kafeler
+                </Typography>
+                <Grid container spacing={3}>
+                    {topRated.map(renderCafeCard)}
+                </Grid>
+            </Box>
 
-            <Typography variant="h5" mt={4} mb={2}>En Popüler Kafeler</Typography>
-            <Grid container spacing={2}>{mostReviewed.map(renderCafeCard)}</Grid>
+            <Box className="cafe-section">
+                <Typography variant="h5" className="section-title">
+                    <PeopleIcon color="primary" />
+                    En Popüler Kafeler
+                </Typography>
+                <Grid container spacing={3}>
+                    {mostReviewed.map(renderCafeCard)}
+                </Grid>
+            </Box>
         </Box>
     );
 };

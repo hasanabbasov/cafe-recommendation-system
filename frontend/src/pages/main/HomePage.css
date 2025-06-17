@@ -1,0 +1,228 @@
+.register-container {
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 40px 2rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Animated Bubbles */
+.bubble {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.1) 0%, rgba(13, 71, 161, 0.1) 100%);
+    border-radius: 50%;
+    animation: float 15s infinite ease-in-out;
+    z-index: 0;
+}
+
+.bubble:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    left: -150px;
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    right: -100px;
+    top: 40%;
+    animation-delay: -5s;
+}
+
+.bubble:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    left: 30%;
+    bottom: -125px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(20px) rotate(-5deg);
+    }
+}
+
+/* Navigation Styles */
+.nav-container {
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: calc(100% - 80px);
+    max-width: 1200px;
+    min-height: calc(100vh - 80px);
+}
+
+.nav-title {
+    color: #1a73e8;
+    font-weight: 700;
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-button {
+    text-transform: none !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease-in-out !important;
+    flex: 1;
+    max-width: 200px;
+}
+
+.nav-button.Mui-selected {
+    background-color: #1a73e8 !important;
+    color: white !important;
+}
+
+.nav-button:hover {
+    background-color: rgba(26, 115, 232, 0.1) !important;
+}
+
+/* Content Area */
+.content-area {
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: calc(100% - 80px);
+    max-width: 1200px;
+    min-height: calc(100vh - 80px);
+}
+
+/* Cafe Listings */
+.cafe-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: #1a73e8;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cafe-card {
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cafe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.cafe-content {
+    padding: 1.5rem;
+}
+
+.cafe-name {
+    color: #1a73e8;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cafe-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.cafe-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #f57c00;
+}
+
+.cafe-reviews {
+    color: #5f6368;
+    font-size: 0.875rem;
+}
+
+.cafe-price {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(26, 115, 232, 0.1);
+    color: #1a73e8;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 20px 1rem;
+        min-height: calc(100vh - 40px);
+    }
+
+    .nav-container {
+        padding: 1rem;
+        width: calc(100% - 20px);
+        min-height: calc(100vh - 40px);
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-button {
+        width: 100%;
+        max-width: none;
+    }
+
+    .content-area {
+        padding: 1rem;
+        width: calc(100% - 20px);
+        min-height: calc(100vh - 40px);
+    }
+
+    .cafe-card {
+        margin-bottom: 1rem;
+    }
+}
