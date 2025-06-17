@@ -31,8 +31,8 @@ def get_recommendations(user_id, top_n=5):
         tags = set(cafe.tags or [])
 
         # preferred_coffee ile tag eşleşmesi
-        if user.preferred_coffee:
-            score += len(set(user.preferred_coffee) & tags)
+        if user.preferred_coffee_type:
+            score += len(set(user.preferred_coffee_type) & tags)
 
         # time_preferences ile eşleşme
         if user.time_preferences:

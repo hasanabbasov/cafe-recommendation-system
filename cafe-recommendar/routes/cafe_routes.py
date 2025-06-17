@@ -12,8 +12,7 @@ def create_cafe():
         cafe_id=data['cafe_id'],
         name=data['name'],
         rating=data.get('rating'),
-        comments=data.get('comments', []),
-        tags=data.get('tags', [])
+        reviews=data.get('reviews', [])
     )
 
     db.session.add(new_cafe)
@@ -32,7 +31,7 @@ def get_cafes():
             'name': cafe.name,
             'rating': cafe.rating,
             'comments': cafe.comments,
-            'tags': cafe.tags
+#             'tags': cafe.tags
         })
 
     return jsonify(result), 200

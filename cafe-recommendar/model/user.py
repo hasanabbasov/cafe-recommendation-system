@@ -10,7 +10,7 @@ class User(db.Model):
     gender = db.Column(db.String)
     job_category = db.Column(db.String)
     job_title = db.Column(db.String)
-    preferred_coffee = db.Column(db.ARRAY(db.String))
+    preferred_coffee_type = db.Column(db.ARRAY(db.String))
     visit_frequency = db.Column(db.Integer)
     average_spend = db.Column(db.Float)
     average_rating = db.Column(db.Float)

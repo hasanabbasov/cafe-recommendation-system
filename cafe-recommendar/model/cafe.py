@@ -7,4 +7,4 @@ class Cafe(db.Model):
     name = db.Column(db.String, nullable=False)
     rating = db.Column(db.Float)
     comments = db.Column(db.ARRAY(db.String))
-    tags = db.Column(db.ARRAY(db.String))  # örn: ["wifi", "sessiz", "dış mekan"]
+    reviews = db.Column(db.ARRAY(db.String))  # örn:q ["wifi", "sessiz", "dış mekan"]
