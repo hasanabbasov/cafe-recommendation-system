@@ -188,4 +188,25 @@
     .MuiCard-root {
         margin-bottom: 1rem;
     }
+}
+
+.form-title {
+    color: #1a73e8;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.form-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #1a73e8, #4285f4);
+    border-radius: 2px;
 } 

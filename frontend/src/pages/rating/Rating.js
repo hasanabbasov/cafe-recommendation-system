@@ -62,13 +62,8 @@ const Ratings = () => {
     return (
         <Box className="register-container">
             <Paper elevation={3} className="register-form">
-                <Typography variant="h4" gutterBottom sx={{ 
-                    color: '#1a73e8',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    mb: 4
-                }}>
-                    Favori Kafelerini Puanla
+                <Typography variant="h4" className="form-title" gutterBottom>
+                    Kafeleri Değerlendir
                 </Typography>
 
                 <Grid container spacing={3}>
