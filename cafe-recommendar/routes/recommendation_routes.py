@@ -47,8 +47,8 @@ def top_cafes():
         "cafe_id": c.cafe_id,
         "name": c.name,
         "rating": c.rating or 0,
-        "reviews": len(c.comments or []),
-        "priceLevel": "Orta"  # isteğe göre fiyat etiketi eklenecek
+        "reviews": c.review_count,
+        "priceLevel": "Mid"  # isteğe göre fiyat etiketi eklenecek
     } for c in cafes]
 
     # Sıralamaları yap

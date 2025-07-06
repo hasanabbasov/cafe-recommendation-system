@@ -117,7 +117,7 @@ const Register = () => {
             gender: formData.gender,
             job_category: formData.jobCategory,
             job_title: formData.jobTitle,
-            preferred_coffee: formData.preferredCoffee,
+            preferred_coffee_type: formData.preferredCoffee,
             visit_frequency: formData.visitFrequency,
             average_spend: formData.averageSpend,
             time_preferences: formData.timeOfDay,

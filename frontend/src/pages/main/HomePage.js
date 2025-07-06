@@ -26,7 +26,7 @@ const HomePage = () => {
 
             <Paper elevation={3} className="nav-container">
                 <Typography variant="h4" className="nav-title">
-                    Kafe Öneri Sistemi
+                    Ultimate Café Finder
                 </Typography>
                 <ToggleButtonGroup
                     color="primary"
@@ -36,22 +36,22 @@ const HomePage = () => {
                     className="nav-buttons"
                 >
                     <ToggleButton
-                        value="/home"
-                        className="nav-button"
-                    >
-                        ANA SAYFA
-                    </ToggleButton>
-                    <ToggleButton
                         value="/home/for-you"
                         className="nav-button"
                     >
-                        FOR YOU
+                        RECOMMENDATIONS
+                    </ToggleButton>
+                    <ToggleButton
+                        value="/home"
+                        className="nav-button"
+                    >
+                        TOP RATED
                     </ToggleButton>
                     <ToggleButton
                         value="/home/search"
                         className="nav-button"
                     >
-                        ARA
+                        SEARCH
                     </ToggleButton>
                 </ToggleButtonGroup>
                 <Box className="content-area">

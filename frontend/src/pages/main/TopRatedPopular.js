@@ -40,7 +40,7 @@ const TopRatedPopular = () => {
                         </Box>
                         <Typography className="cafe-reviews">
                             <PeopleIcon sx={{ fontSize: 16, mr: 0.5 }} />
-                            {cafe.reviews} değerlendirme
+                            {cafe.reviews} reviews
                         </Typography>
                     </Box>
                     <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
@@ -52,7 +52,7 @@ const TopRatedPopular = () => {
                         />
                         <Chip
                             icon={<LocalCafeIcon />}
-                            label="Kafe"
+                            label="Café"
                             size="small"
                             className="cafe-price"
                         />
@@ -67,7 +67,7 @@ const TopRatedPopular = () => {
             <Box className="cafe-section">
                 <Typography variant="h5" className="section-title">
                     <StarIcon color="primary" />
-                    En Yüksek Puanlı Kafeler
+                    Top Rated Cafés
                 </Typography>
                 <Grid container spacing={3}>
                     {topRated.map(renderCafeCard)}
@@ -77,7 +77,7 @@ const TopRatedPopular = () => {
             <Box className="cafe-section">
                 <Typography variant="h5" className="section-title">
                     <PeopleIcon color="primary" />
-                    En Popüler Kafeler
+                    Most Visited Cafés
                 </Typography>
                 <Grid container spacing={3}>
                     {mostReviewed.map(renderCafeCard)}

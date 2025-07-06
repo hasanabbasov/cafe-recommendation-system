@@ -1,0 +1,15 @@
+ALTER TABLE cafes ADD COLUMN review_count INT;
+
+UPDATE cafes
+SET review_count = sub.review_count
+FROM (
+  SELECT cafe_id, COUNT(*) AS review_count
+  FROM reviews
+  GROUP BY cafe_id
+) AS sub
+WHERE cafes.cafe_id = sub.cafe_id;
+
+
+
+ALTER TABLE
+UPDATE 138
