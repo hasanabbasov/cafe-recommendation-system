@@ -1,8 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pandas as pd
 import numpy as np
 from scipy.spatial.distance import cosine
-from app import app,db
-from model.user_rating import UserRating
+from app import app, db
+from model.review import Review
 
 def compute_rmse(test_size=0.2):
     # 1. Load all ratings

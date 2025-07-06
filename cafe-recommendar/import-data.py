@@ -26,7 +26,7 @@ def parse_array_field(value):
         return []
 
 def import_users():
-    path = os.path.join(BASE_DIR, 'users.csv')
+    path = os.path.join(BASE_DIR, 'data/users.csv')
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter=';', quotechar='"', skipinitialspace=True)
 
@@ -52,33 +52,8 @@ def import_users():
     db.session.commit()
     print("Users imported!")
 
-def import_cafesxt():
-    path = os.path.join(BASE_DIR, 'cafes.csv')
-    with open(path, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter=';')
-        for i, row in enumerate(reader, 1):
-           print(f"Row {i}: {row}")
-           # Skip if already imported
-           if Cafe.query.filter_by(cafe_id=row['id']).first():
-               print(f"Skipping existing cafe: {row['name']}")
-               continue
-           rating = None
-           if row.get('rating'):
-               rating = float(row['rating'].replace(',', '.'))
-
-           cafe = Cafe(
-            cafe_id=row['id'],
-            name=row['name'],
-            rating = rating,
-            reviews=parse_array_field(row.get('reviews', '[]'))
-           )
-           db.session.add(cafe)
-    db.session.commit()
-    print("Cafes imported!")
-
-
 def import_reviews():
-    path = os.path.join(BASE_DIR, 'reviews.csv')
+    path = os.path.join(BASE_DIR, 'data/reviews.csv')
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter=';')
         for row in reader:
@@ -123,7 +98,7 @@ TAG_KEYWORDS = {
     'Date': ['date', 'romantic', 'couple', 'intimate', 'cozy']
 }
 
-path = os.path.join(BASE_DIR, 'cafes.csv')
+path = os.path.join(BASE_DIR, 'data/cafes.csv')
 
 def preprocess_comments(comments):
     """Convert list of comments to a single string and clean it"""
