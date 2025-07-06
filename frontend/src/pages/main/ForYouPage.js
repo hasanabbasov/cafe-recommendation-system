@@ -103,7 +103,7 @@ const ForYouPage = () => {
             <Box className="cafe-section">
                 <Typography variant="h5" className="section-title">
                     <AutoAwesomeIcon color="primary" />
-                    Content-Based Öneriler
+                    Content-Based Recommendations
                 </Typography>
                 {contentBased.length === 0 ? (
                     <Typography variant="body2" color="text.secondary">
@@ -157,7 +157,7 @@ const ForYouPage = () => {
             <Box className="cafe-section">
                 <Typography variant="h5" className="section-title">
                     <CompareArrowsIcon color="primary" />
-                    Hybrid Öneriler
+                    Hybrid Recommendations
                 </Typography>
                 <Grid container spacing={3}>
                     {hybrid.map(renderCafeCard)}

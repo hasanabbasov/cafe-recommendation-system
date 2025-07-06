@@ -6,6 +6,7 @@ from model import user, cafe, user_rating, user_favorite, review
 from model.user import User
 from model.cafe import Cafe
 from model.review import Review
+import json
 
 
 app = create_app()  # make sure you have this factory function
@@ -51,7 +52,7 @@ def import_users():
     db.session.commit()
     print("Users imported!")
 
-def import_cafes():
+def import_cafesxt():
     path = os.path.join(BASE_DIR, 'cafes.csv')
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter=';')
@@ -75,6 +76,7 @@ def import_cafes():
     db.session.commit()
     print("Cafes imported!")
 
+
 def import_reviews():
     path = os.path.join(BASE_DIR, 'reviews.csv')
     with open(path, newline='', encoding='utf-8') as f:
@@ -92,15 +94,104 @@ def import_reviews():
             review = Review(
                 review_id=row['review_id'],
                 user_id=row['user_id'],
+                user_name=row['user_name'],
+                cafe_name=row.get('cafe_name'),
                 cafe_id=row['cafe_id'],
-                user_name=parse_array_field(row.get('user_name', '[]')),
-                cafe_name=parse_array_field(row.get('cafe_name', '[]')),
                 rating=float(row['rating']) if row['rating'] else None,
                 date=date_val
             )
             db.session.add(review)
     db.session.commit()
     print("Reviews imported!")
+
+
+
+
+## IMPORT CAFESSS
+
+# Tag mapping dictionary
+TAG_KEYWORDS = {
+    'Relaxed': ['relax', 'comfortable', 'peaceful', 'calm', 'quiet', 'chill', 'cozy'],
+    'Focused': ['focus', 'concentration', 'work', 'study', 'productive', 'silent'],
+    'Social': ['social', 'friends', 'group', 'meeting', 'gathering', 'chat'],
+    'Creative': ['creative', 'art', 'design', 'inspiration', 'unique', 'artistic'],
+    'Productive': ['productive', 'work', 'business', 'meeting', 'laptop', 'wifi'],
+    'Casual': ['casual', 'informal', 'relaxed', 'comfortable', 'easy'],
+    'Business': ['business', 'meeting', 'professional', 'formal', 'work'],
+    'Study': ['study', 'student', 'library', 'quiet', 'concentration', 'homework'],
+    'Meeting': ['meeting', 'group', 'team', 'discussion', 'business'],
+    'Date': ['date', 'romantic', 'couple', 'intimate', 'cozy']
+}
+
+path = os.path.join(BASE_DIR, 'cafes.csv')
+
+def preprocess_comments(comments):
+    """Convert list of comments to a single string and clean it"""
+    if isinstance(comments, list):
+        return ' '.join(str(comment).lower() for comment in comments)
+    return str(comments).lower()
+
+def generate_tags(comments):
+    """Generate tags based on comment content using keyword matching"""
+    if not comments:
+        return []
+    comment_text = preprocess_comments(comments)
+    matched_tags = []
+    for tag, keywords in TAG_KEYWORDS.items():
+        if any(keyword in comment_text for keyword in keywords):
+            matched_tags.append(tag)
+    if not matched_tags:
+        matched_tags.append('Casual')
+    return matched_tags
+
+def convert_reviews_to_list(reviews):
+    """Convert reviews string to list"""
+    if isinstance(reviews, str):
+        try:
+            reviews_list = json.loads(reviews)
+            if isinstance(reviews_list, list):
+                return reviews_list
+        except json.JSONDecodeError:
+            return [r.strip() for r in reviews.split('\n') if r.strip()]
+    elif isinstance(reviews, list):
+        return reviews
+    return []
+
+
+def import_cafes():
+    if not os.path.exists(path):
+        print(f"Error: CSV file not found at {path}")
+        return
+
+    with open(path, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        for i, row in enumerate(reader, 1):
+            print(f"Row {i}: {row}")
+
+            # Skip if already imported
+            if Cafe.query.filter_by(cafe_id=row['id']).first():
+                print(f"Skipping existing cafe: {row['name']}")
+                continue
+
+            rating = None
+            if row.get('rating'):
+                rating = float(row['rating'].replace(',', '.'))
+
+            reviews_list = convert_reviews_to_list(row.get('reviews', ''))
+            tags = generate_tags(reviews_list)
+
+            cafe = Cafe(
+                cafe_id=row['id'],
+                name=row['name'],
+                rating=rating,
+                reviews=parse_array_field(row.get('reviews', '[]')),
+                tags=tags
+            )
+            db.session.add(cafe)
+
+        db.session.commit()
+        print("Cafes imported!")
+
 
 if __name__ == '__main__':
     with app.app_context():

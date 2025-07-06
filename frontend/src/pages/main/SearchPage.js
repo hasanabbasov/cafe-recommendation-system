@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Typography,
@@ -13,21 +13,26 @@ import {
     Paper,
     Rating
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 
-const allTags = ['açık hava', 'sessiz', 'çalışma için uygun', 'nargile yok'];
-
-const mockSearchResults = [
-    { id: 7, name: 'Cafe Açık Hava', tags: ['açık hava', 'sessiz'], rating: 4.0 },
-    { id: 8, name: 'Nargilesiz Cafe', tags: ['nargile yok', 'çalışma için uygun'], rating: 4.3 },
-    { id: 9, name: 'Study Cafe', tags: ['çalışma için uygun', 'sessiz'], rating: 4.4 },
-];
+const allTags = ['Study', 'Relaxed', 'Social', 'Creative', 'Focused', 'Productive'];
 
 const SearchPage = () => {
+    const [cafes, setCafes] = useState([]); // ✅ state for real cafes
     const [selectedTags, setSelectedTags] = useState([]);
     const [search, setSearch] = useState('');
+
+    // ✅ fetch cafes when component mounts
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/cafes') // or just '/cafes' if same domain
+            .then(response => response.json())
+            .then(data => {
+                setCafes(data);
+                console.log('Fetched cafes:', data);
+            })
+            .catch(error => console.error('Error fetching cafes:', error));
+    }, []);
 
     const handleTagChange = (tag) => {
         setSelectedTags((prev) =>
@@ -35,7 +40,7 @@ const SearchPage = () => {
         );
     };
 
-    const filtered = mockSearchResults.filter((cafe) =>
+    const filtered = cafes.filter((cafe) =>
         selectedTags.every((tag) => cafe.tags.includes(tag)) &&
         cafe.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -44,14 +49,14 @@ const SearchPage = () => {
         <Box className="register-container">
             <Paper elevation={3} className="register-form">
                 <Typography variant="h4" className="form-title" gutterBottom>
-                    Kafe Ara
+                    Find Cafes
                 </Typography>
-                <div >
+                <div>
                     <Box sx={{ width: '100%', mb: 3 }}>
                         <TextField
                             fullWidth
                             variant="outlined"
-                            placeholder="Kafe ismi ile ara..."
+                            placeholder="Search by name"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             sx={{
@@ -71,7 +76,7 @@ const SearchPage = () => {
                     <Box sx={{ width: '100%' }}>
                         <Typography variant="h6" className="section-title">
                             <FilterListIcon color="primary" />
-                            Filtreler
+                            Filters
                         </Typography>
                         <FormGroup row sx={{ mt: 2, gap: 2 }}>
                             {allTags.map((tag) => (
@@ -102,7 +107,7 @@ const SearchPage = () => {
                         <>
                             <Typography variant="h5" className="section-title" sx={{ mb: 3 }}>
                                 <LocalCafeIcon color="primary" />
-                                Filtrelenmiş Sonuçlar
+                                Results
                             </Typography>
 
                             <Grid container spacing={3}>
